@@ -5,6 +5,7 @@ include( "InstanceManager" );
 include( "AnimSidePanelSupport" );
 include( "SupportFunctions" );
 include( "EspionageSupport" );
+include( "EspionageSupport_BES" );
 include( "TabSupport" );
 include( "Colors" );
 

@@ -1,39 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Mod id="ebdf2824-352e-49c3-90c1-743a89180da8"  version="2.0">
+<Mod id="07D5DFAB-44CE-8F63-8344-93E427E9376E" version="1">
   <Properties>
-    <Name>Better Espionage Screen</Name>
-    <Stability>Beta</Stability>
+    <Name>Better Espionage Screen (UI)</Name>
     <Teaser>Improves the espionage screen. Adds filters, side screens, etc.</Teaser>
-    <Description>Improves the espionage screen. Adds filters, side screens, etc.</Description>
-    <Authors>astog</Authors>
+    <Description>Improves the espionage screen. Adds filters, side screens, etc.[NEWLINE]Version 2.0 enhanced by Infixo.</Description>
+    <Authors>astog, Infixo</Authors>
     <AffectsSavedGames>0</AffectsSavedGames>
     <CompatibleVersions>2.0</CompatibleVersions>
   </Properties>
-
   <InGameActions>
-    <ImportFiles id="BES_IMPORT_FILES">
+    <!-- LoadOrder: CQUI uses up to 200, original BES doesn't use load order -->
+    <ImportFiles id="BES_ImportFiles">
+      <Properties><LoadOrder>300</LoadOrder></Properties>
       <Items>
-        <File>Base/Assets/UI/EspionageSupport.lua</File>
-        <File>Base/Assets/UI/Choosers/EspionageChooser.lua</File>
-        <File>Base/Assets/UI/Choosers/EspionageChooser.xml</File>
-        <File>Base/Assets/UI/PartialScreens/EspionageOverview.lua</File>
-        <File>Base/Assets/UI/PartialScreens/EspionageOverview.xml</File>
+        <File>UI/EspionageSupport_BES.lua</File>
+        <File>UI/espionagechooser.lua</File>
+        <File>UI/espionagechooser.xml</File>
+        <File>UI/espionageoverview.lua</File>
+        <File>UI/espionageoverview.xml</File>
       </Items>
     </ImportFiles>
-
-    <LocalizedText id="BES_TEXT">
+    <LocalizedText id="BES_Text">
+      <Properties><LoadOrder>300</LoadOrder></Properties>
       <Items>
         <File>Text/BES_Text.xml</File>
       </Items>
     </LocalizedText>
   </InGameActions>
-
   <Files>
-    <File>Base/Assets/UI/EspionageSupport.lua</File>
-    <File>Base/Assets/UI/Choosers/EspionageChooser.lua</File>
-    <File>Base/Assets/UI/Choosers/EspionageChooser.xml</File>
-    <File>Base/Assets/UI/PartialScreens/EspionageOverview.lua</File>
-    <File>Base/Assets/UI/PartialScreens/EspionageOverview.xml</File>
+    <File>UI/EspionageSupport_BES.lua</File>
+    <File>UI/espionagechooser.lua</File>
+    <File>UI/espionagechooser.xml</File>
+    <File>UI/espionageoverview.lua</File>
+    <File>UI/espionageoverview.xml</File>
     <File>Text/BES_Text.xml</File>
   </Files>
 </Mod>
