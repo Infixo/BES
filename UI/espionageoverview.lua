@@ -1,4 +1,5 @@
-﻿-- ===========================================================================
+﻿print("Loading EspionageOverview.lua from Better Espionage Screen version 2.0");
+-- ===========================================================================
 ---- ESPIONAGE OVERVIEW ----
 -- ===========================================================================
 include( "InstanceManager" );
@@ -431,6 +432,7 @@ function AddCity(city:table)
         local boostedTurnsRemaining:number = playerDiplomacy:GetSourceTurnsRemaining(city);
         if boostedTurnsRemaining > 0 then
             cityInstance.GainSourcesBoostIcon:SetHide(false);
+            cityInstance.GainSourcesBoostIcon:SetToolTipString(Locale.Lookup("LOC_ESPIONAGECHOOSER_GAIN_SOURCES_ACTIVE", boostedTurnsRemaining));
         else
             cityInstance.GainSourcesBoostIcon:SetHide(true);
         end
@@ -647,7 +649,14 @@ function AddOperative(spy:table)
     local spyInfo:table = GameInfo.Units[spy:GetUnitType()];
 
     -- Operative Name
-    operativeInstance.OperativeName:SetText(Locale.ToUpper(spy:GetName()));
+	local spyName:string = Locale.ToUpper(spy:GetName());
+	local spyLevel:string, spyPromosDef:string, spyPromosOff:string, spyPromosTT:string = GetSpyLevelAndPromotions(spy);
+    operativeInstance.OperativeName:SetText( spyName.." "..spyLevel );
+	operativeInstance.OperativeName:SetToolTipString( spyPromosTT );
+	operativeInstance.PromosDef:SetText( spyPromosDef );
+	operativeInstance.PromosDef:SetToolTipString( spyPromosTT );
+	operativeInstance.PromosOff:SetText( spyPromosOff );
+	operativeInstance.PromosOff:SetToolTipString( spyPromosTT );
 
     -- Operative Rank
     local spyExperience:table = spy:GetExperience();
@@ -751,8 +760,10 @@ function AddOffMapOperative(spy:table)
     -- Adjust texture offset
     operativeInstance.Top:SetTextureOffsetVal(0, 146);
 
-    -- Operative Name
-    operativeInstance.OperativeName:SetText(Locale.ToUpper(spy.Name));
+	-- Operative Name
+	operativeInstance.OperativeName:SetText(Locale.ToUpper(spy.Name).." "..GetSpyRankIconByLevel(spy.Level));
+	operativeInstance.PromosDef:SetHide(true);
+	operativeInstance.PromosOff:SetHide(true);
 
     -- Operative Rank
     operativeInstance.OperativeRank:SetText(Locale.Lookup(GetSpyRankNameByLevel(spy.Level)));
@@ -785,8 +796,10 @@ function AddCapturedOperative(spy:table, playerCapturedBy:number)
     -- Adjust texture offset
     operativeInstance.Top:SetTextureOffsetVal(0, 146);
 
-    -- Operative Name
-    operativeInstance.OperativeName:SetText(Locale.ToUpper(spy.Name));
+	-- Operative Name
+	operativeInstance.OperativeName:SetText(Locale.ToUpper(spy.Name).." "..GetSpyRankIconByLevel(spy.Level));
+	operativeInstance.PromosDef:SetHide(true);
+	operativeInstance.PromosOff:SetHide(true);
 
     -- Operative Rank
     operativeInstance.OperativeRank:SetText(Locale.Lookup(GetSpyRankNameByLevel(spy.Level)));
@@ -1285,3 +1298,4 @@ function Initialize()
     PopulateTabs();
 end
 Initialize();
+print("OK loaded EspionageOverview.lua from Better Espionage Screen");

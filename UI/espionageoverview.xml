@@ -151,6 +151,10 @@
     <Grid ID="Top" Size="489,auto" AutoSizePadding="0,4" Texture="Espionage_Item" SliceCorner="13,36" SliceSize="463,25" SliceTextureSize="489,73" NoStateChange="1">
       <!-- Operative Name -->
       <Label ID="OperativeName" Offset="12,10" Style="FontFlair18" SmallCaps="24" SmallCapsType="EveryWord" FontStyle="Glow" EffectColor="EspionageOverview_EffectBlue"/>
+	  
+	  <!-- Promotions -->
+      <Label ID="PromosDef" Anchor="L,T" Offset="170,10" Style="FontNormal16" String="$def" />
+      <Label ID="PromosOff" Anchor="L,T" Offset="220,10" Style="FontNormal16" String="$off" />
 
       <!-- Operative Name -->
       <Label ID="OperativeRank" Anchor="R,T" Offset="12,9" Style="FontNormal16" Color="Grey"/>
