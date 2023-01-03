@@ -477,6 +477,111 @@ function AddDestination(city:table)
 
     -- Set button callback
     destinationInstance.DestinationButton:RegisterCallback( Mouse.eLClick, function() OnSelectDestination(city);  end);
+	
+	-- Infixo 2023-01-03, BES extra information
+	--[[
+		<!-- BES new icons -->
+		<Image ID="CityProtectedIcon" Anchor="L,C" Offset="-1,-3" Icon="ICON_NOTIFICATION_NOTIFICATION_EMERGENCY_FAILED" Size="33,33" /><!-- Stop sign - agent was captured or killed here -->
+        <Image ID="GainSourcesBoostIcon" Anchor="R,T" Size="20,20" Offset="42,4" Texture="EspionageMissions20" TextureOffset="20,0"/> <!-- Gain sources -->
+		<Image ID="LastMissionIcon" Anchor="R,T" Size="20,20" Offset="64,4" Texture="EspionageMissions20" TextureOffset="160,0" /><!-- Last mission, details in the tooltip -->
+		<Label ID="LastMissionLabel" Anchor="R,C" Size="24,20" Offset="90,-1" String="[ICON_PROMOTION_SPY_CAT_BURGLAR]" />
+	--]]
+
+    -- Update gain sources boost icon
+    local player = Players[Game.GetLocalPlayer()];
+    local playerDiplomacy:table = player:GetDiplomacy();
+    if playerDiplomacy then
+        local boostedTurnsRemaining:number = playerDiplomacy:GetSourceTurnsRemaining(city);
+        if boostedTurnsRemaining > 0 then
+            destinationInstance.GainSourcesBoostIcon:SetHide(false);
+            destinationInstance.GainSourcesBoostIcon:SetToolTipString(Locale.Lookup("LOC_ESPIONAGECHOOSER_GAIN_SOURCES_ACTIVE", boostedTurnsRemaining));
+        else
+            destinationInstance.GainSourcesBoostIcon:SetHide(true);
+        end
+    end
+
+	-- Check mission history for the city and find out about the last mission and the danger
+	local lastMission:table = nil;
+	local riskMission:table = nil;
+    if playerDiplomacy then
+        local recentMissions:table = playerDiplomacy:GetRecentMissions(Game.GetLocalPlayer(), 100, 0);
+        if recentMissions then
+            for _,mission in pairs(recentMissions) do
+				-- the city is checked by using a city name
+				if mission.CityName == city:GetName() then
+					-- they are sorted by turn finished descending, so the first found is the last one performed
+					if lastMission == nil then lastMission = mission; end
+					-- check danger
+					if riskMission == nil and (
+						mission.InitialResult == EspionageResultTypes.KILLED or mission.InitialResult == EspionageResultTypes.CAPTURED or
+						mission.EscapeResult  == EspionageResultTypes.KILLED or mission.EscapeResult  == EspionageResultTypes.CAPTURED ) then
+						riskMission = mission;
+					end
+				end
+            end
+        end
+    end
+
+	local function SetMissionToolTip(mission:table, icon:table)
+	    local operationInfo:table = GameInfo.UnitOperations[mission.Operation];
+		local tt:table = {}; -- build tooltip
+		table.insert(tt, Locale.ToUpper(mission.Name)); -- agent name
+		local turnsSinceMission:number = Game.GetCurrentGameTurn() - mission.CompletionTurn;
+		table.insert(tt, Locale.Lookup(operationInfo.Description)..", "..Locale.Lookup("LOC_ESPIONAGEOVERVIEW_TURNS_AGO", turnsSinceMission)); -- mission name & when
+		-- Update outcome and font icon
+		local outcomeDetails:table = GetMissionOutcomeDetails(mission);
+		if outcomeDetails then
+			table.insert(tt, outcomeDetails.Description);
+			if outcomeDetails.Success then table.insert(tt, "[COLOR_Green]"..Locale.ToUpper("LOC_ESPIONAGEOVERVIEW_SUCCESS").."[ENDCOLOR]");
+			else                           table.insert(tt, "[COLOR_Red]"..Locale.ToUpper("LOC_ESPIONAGEOVERVIEW_FAILURE").."[ENDCOLOR]"); end
+			if outcomeDetails.SpyStatus ~= "" then
+				table.insert(tt, "[COLOR_Red]"..outcomeDetails.SpyStatus.."[ENDCOLOR]");
+			end
+		end
+		icon:SetToolTipString(table.concat(tt, "[NEWLINE]"));
+	end
+	
+	-- was there any danger?
+	if riskMission ~= nil then
+		destinationInstance.CityProtectedIcon:SetHide(false);
+		SetMissionToolTip(riskMission, destinationInstance.CityProtectedIcon);
+	else
+		destinationInstance.CityProtectedIcon:SetHide(true);
+	end
+	
+	-- show last mission details
+	if lastMission ~= nil then
+		--[[
+	    local operationInfo:table = GameInfo.UnitOperations[lastMission.Operation];
+		local tt:table = {}; -- build tooltip
+		table.insert(tt, Locale.ToUpper(lastMission.Name)); -- agent name
+		local turnsSinceMission:number = Game.GetCurrentGameTurn() - lastMission.CompletionTurn;
+		table.insert(tt, Locale.Lookup(operationInfo.Description)..", "..Locale.Lookup("LOC_ESPIONAGEOVERVIEW_TURNS_AGO", turnsSinceMission)); -- mission name & when
+		-- Update outcome and font icon
+		local outcomeDetails:table = GetMissionOutcomeDetails(lastMission);
+		if outcomeDetails then
+			table.insert(tt, outcomeDetails.Description);
+			if outcomeDetails.Success then table.insert(tt, "[COLOR_Green]"..Locale.ToUpper("LOC_ESPIONAGEOVERVIEW_SUCCESS").."[ICON_CheckSuccess][ENDCOLOR]");
+			else                           table.insert(tt, "[COLOR_Red]"..Locale.ToUpper("LOC_ESPIONAGEOVERVIEW_FAILURE").."[ICON_CheckFail][ENDCOLOR]"); end
+			if outcomeDetails.SpyStatus ~= "" then
+				table.insert(tt, "[COLOR_Red]"..outcomeDetails.SpyStatus.."[ENDCOLOR]");
+			end
+		end
+		destinationInstance.LastMissionIcon:SetToolTipString(table.concat(tt, "[NEWLINE]"));
+		--]]
+		SetMissionToolTip(lastMission, destinationInstance.LastMissionIcon);
+		-- Update mission icon
+	    local operationInfo:table = GameInfo.UnitOperations[lastMission.Operation];
+		local textureOffsetX, textureOffsetY, textureSheet = IconManager:FindIconAtlas(operationInfo.Icon,40);
+		if textureSheet then
+			destinationInstance.LastMissionIcon:SetTexture(textureOffsetX, textureOffsetY, textureSheet);
+		else
+			UI.DataError("Unable to find icon for spy operation: " .. operationInfo.Icon);
+		end
+		destinationInstance.LastMissionIcon:SetHide(false);
+	else
+		destinationInstance.LastMissionIcon:SetHide(true);
+	end
 end
 
 -- ===========================================================================

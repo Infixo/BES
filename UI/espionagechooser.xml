@@ -134,7 +134,7 @@
 	</Stack>
 
     <!-- Destination Panel -->
-    <ScrollPanel    ID="DestinationPanel" Anchor="L,T" Offset="18,190" Size="parent-22,parent-169" Vertical="1" AutoScrollBar="0" FullClip="1">
+    <ScrollPanel    ID="DestinationPanel" Anchor="L,T" Offset="18,194" Size="parent-22,parent-194" Vertical="1" AutoScrollBar="0" FullClip="1">
       <ScrollBar    Anchor="L,C" Size="11,parent" AnchorSide="O,I" Offset="4,0" Style="ScrollVerticalBar" />
       <Stack        ID="DestinationStack" StackGrowth="Bottom" StackPadding="2" />
     </ScrollPanel>
@@ -190,7 +190,7 @@
 		<!-- BES new icons -->
 		<Image ID="CityProtectedIcon" Anchor="L,C" Offset="-1,-3" Icon="ICON_NOTIFICATION_NOTIFICATION_EMERGENCY_FAILED" Size="33,33" /><!-- Stop sign - agent was captured or killed here -->
         <Image ID="GainSourcesBoostIcon" Anchor="R,T" Size="20,20" Offset="42,4" Texture="EspionageMissions20" TextureOffset="20,0"/> <!-- Gain sources -->
-		<Image ID="LastMissionIcon" Anchor="R,T" Size="20,20" Offset="64,4" Texture="EspionageMissions20" TextureOffset="160,0" /><!-- Last mission, details in the tooltip -->
+		<Image ID="LastMissionIcon" Anchor="R,T" Size="20,20" Offset="64,4" Texture="EspionageMissions20" TextureOffset="160,0" StretchMode="UniformToFill" /><!-- Last mission, details in the tooltip -->
 		<Label ID="LastMissionLabel" Anchor="R,C" Size="24,20" Offset="90,-1" String="[ICON_PROMOTION_SPY_CAT_BURGLAR]" />
       </Grid>
 
