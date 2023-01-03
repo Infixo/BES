@@ -4,6 +4,48 @@
 -- 2022-12-31: Created
 --------------------------------------------------------------
 
+--[[
+Mission history fields:
+Operation
+PlotIndex
+LootInfo
+LevelAfter
+CityName
+CompletionTurn
+Name
+InitialResult -> EspionageResultTypes
+EscapeResult -> EspionageResultTypes
+
+EspionageResultTypes
+NO_RESULT				number	-1
+KILLED					number	0
+CAPTURED				number	1
+FAIL_MUST_ESCAPE		number	2
+FAIL_UNDETECTED			number	3
+SUCCESS_MUST_ESCAPE   	number	4
+SUCCESS_UNDETECTED    	number	5
+NUM_ESPIONAGE_RESULTS 	number	6
+
+
+--]]
+
+-- debug routine - prints a table (no recursion)
+function dshowtable(tTable:table)
+	for k,v in pairs(tTable) do
+		print(k, type(v), tostring(v));
+	end
+end
+
+-- debug routine - prints a table, and tables inside recursively (up to 5 levels)
+function dshowrectable(tTable:table, iLevel:number)
+	local level:number = 0;
+	if iLevel ~= nil then level = iLevel; end
+	for k,v in pairs(tTable) do
+		print(string.rep("---:",level), k, type(v), tostring(v));
+		if type(v) == "table" and level < 5 then dshowrectable(v, level+1); end
+	end
+end
+
 -- ===========================================================================
 -- Author: astog
 function hasDistrict(city:table, districtType:string)

@@ -167,28 +167,28 @@
 
       <!-- Active Mission -->
       <Container ID="ActiveMissionContainer" Size="parent-10,76" Offset="5,35">
-        <Grid Size="parent,30" Texture="Espionage_Container" SliceCorner="2,2" SliceSize="28,28">
-          <Image Anchor="L,C" Size="295,22" Offset="4,0" Texture="Espionage_ProgressBar">
-            <TextureBar ID="OperationPercentComplete" Direction="Right" Offset="0,0" TextureOffset="0,22" Speed="0" Percent="1.0" Anchor="L,C" Size="295,22" Texture="Espionage_ProgressBar"/>
-            <Label Anchor="L,C" Offset="8,1" ID="OperationName" Style="FontNormal18"/>
-            <Label Anchor="R,C" Offset="8,0" ID="OperationTurnsRemaining" Style="FontNormal16" Color="EspionageOverview_EffectBlue"/>
-          </Image>
-        </Grid>
+        <!--<Grid Size="parent,30" Texture="Espionage_Container" SliceCorner="2,2" SliceSize="28,28">-->
+        <Image Anchor="L,T" Size="295,22" Offset="6,2" Texture="Espionage_ProgressBar">
+          <TextureBar ID="OperationPercentComplete" Direction="Right" Offset="0,0" TextureOffset="0,22" Speed="0" Percent="1.0" Anchor="L,C" Size="295,22" Texture="Espionage_ProgressBar"/>
+          <Label Anchor="L,C" Offset="8,1" ID="OperationName" Style="FontNormal18"/>
+          <Label Anchor="R,C" Offset="8,0" ID="OperationTurnsRemaining" Style="FontNormal16" Color="EspionageOverview_EffectBlue"/>
+        </Image>
+        <!--</Grid>-->
 
         <!-- Operation Icon -->
-        <Grid Size="46,46" Offset="0,32" Texture="Espionage_Container" SliceCorner="2,2" SliceSize="28,28">
-          <Image ID="OperationIcon" Anchor="C,C" Size="40,40" Color="Grey" Texture="EspionageMissions40"/>
-        </Grid>
+		<!--<Grid Size="46,46" Offset="0,32" Texture="Espionage_Container" SliceCorner="2,2" SliceSize="28,28">-->
+        <Image ID="OperationIcon" Offset="3,35" Size="40,40" Color="Grey" Texture="EspionageMissions40"/>
+        <!--</Grid>-->
 
         <!-- Operation Details -->
-        <Grid Anchor="C,T" Size="381,46" Offset="0,32" Texture="Espionage_Container" SliceCorner="2,2" SliceSize="28,28">
-          <Label ID="OperationDetails" Anchor="C,C" Offset="0,0" Style="FontNormal16" Align="Center" WrapWidth="parent-6"/>
-        </Grid>
+        <!--<Grid Anchor="C,T" Size="381,46" Offset="0,32" Texture="Espionage_Container" SliceCorner="2,2" SliceSize="28,28">-->
+        <Label ID="OperationDetails" Anchor="C,T" Size="381,46" Offset="2,34" Style="FontNormal16" Align="Center" WrapWidth="375"/>
+        <!--</Grid>-->
 
         <!-- Operation District Icon -->
-        <Grid Anchor="R,T" Size="46,46" Offset="0,32" Texture="Espionage_Container" SliceCorner="2,2" SliceSize="28,28">
-          <Image ID="OperationDistrictIcon" Anchor="C,C" Size="32,32" Texture="Districts32"/>
-        </Grid>
+        <!--<Grid Anchor="R,T" Size="46,46" Offset="0,32" Texture="Espionage_Container" SliceCorner="2,2" SliceSize="28,28">-->
+        <Image ID="OperationDistrictIcon" Anchor="R,T" Offset="7,39" Size="32,32" Texture="Districts32"/>
+        <!--</Grid>-->
       </Container>
 
       <!-- Travelling Info -->
