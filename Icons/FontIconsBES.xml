@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Better Espionage Screen
+ Author: Infixo
+ 2023-01-02: Created
+-->
+
+<GameInfo>
+	<IconTextureAtlases>
+		<!-- Font Icons require special Baseline attribute (so keep separate) -->
+		<Replace Name="ICON_ATLAS_FONT_ICON_BES_GUERILLA_LEADER"  Baseline="4" IconSize="22" IconsPerRow="1" IconsPerColumn="1" Filename="bes_promo_barbs.dds"/>
+		<Replace Name="ICON_ATLAS_FONT_ICON_BES_SEDUCTION" 		  Baseline="4" IconSize="22" IconsPerRow="1" IconsPerColumn="1" Filename="bes_promo_counter.dds"/>
+		<Replace Name="ICON_ATLAS_FONT_ICON_BES_SATCHEL_CHARGES"  Baseline="4" IconSize="22" IconsPerRow="1" IconsPerColumn="1" Filename="bes_promo_dam.dds"/>
+		<Replace Name="ICON_ATLAS_FONT_ICON_BES_DISGUISE" 		  Baseline="4" IconSize="22" IconsPerRow="1" IconsPerColumn="1" Filename="bes_promo_disguise.dds"/>
+		<Replace Name="ICON_ATLAS_FONT_ICON_BES_ACE_DRIVER"       Baseline="4" IconSize="22" IconsPerRow="1" IconsPerColumn="1" Filename="bes_promo_driver.dds"/>
+		<Replace Name="ICON_ATLAS_FONT_ICON_BES_CON_ARTIST" 	  Baseline="4" IconSize="22" IconsPerRow="1" IconsPerColumn="1" Filename="bes_promo_gold.dds"/>
+		<Replace Name="ICON_ATLAS_FONT_ICON_BES_LICENSE_TO_KILL"  Baseline="4" IconSize="22" IconsPerRow="1" IconsPerColumn="1" Filename="bes_promo_governor.dds"/>
+		<Replace Name="ICON_ATLAS_FONT_ICON_BES_CAT_BURGLAR"  	  Baseline="4" IconSize="22" IconsPerRow="1" IconsPerColumn="1" Filename="bes_promo_heist.dds"/>
+		<Replace Name="ICON_ATLAS_FONT_ICON_BES_DEMOLITIONS" 	  Baseline="4" IconSize="22" IconsPerRow="1" IconsPerColumn="1" Filename="bes_promo_industry.dds"/>
+		<Replace Name="ICON_ATLAS_FONT_ICON_BES_COVERT_ACTION"    Baseline="4" IconSize="22" IconsPerRow="1" IconsPerColumn="1" Filename="bes_promo_loyalty.dds"/>
+		<Replace Name="ICON_ATLAS_FONT_ICON_BES_ROCKET_SCIENTIST" Baseline="4" IconSize="22" IconsPerRow="1" IconsPerColumn="1" Filename="bes_promo_rocket.dds"/>
+		<Replace Name="ICON_ATLAS_FONT_ICON_BES_SMEAR_CAMPAIGN"   Baseline="4" IconSize="22" IconsPerRow="1" IconsPerColumn="1" Filename="bes_promo_scandal.dds"/>
+		<Replace Name="ICON_ATLAS_FONT_ICON_BES_POLYGRAPH"  	  Baseline="4" IconSize="22" IconsPerRow="1" IconsPerColumn="1" Filename="bes_promo_spy_down.dds"/>
+		<Replace Name="ICON_ATLAS_FONT_ICON_BES_QUARTERMASTER" 	  Baseline="4" IconSize="22" IconsPerRow="1" IconsPerColumn="1" Filename="bes_promo_spy_up.dds"/>
+		<Replace Name="ICON_ATLAS_FONT_ICON_BES_SURVEILLANCE"     Baseline="4" IconSize="22" IconsPerRow="1" IconsPerColumn="1" Filename="bes_promo_surveillence.dds"/>
+		<Replace Name="ICON_ATLAS_FONT_ICON_BES_TECHNOLOGIST" 	  Baseline="4" IconSize="22" IconsPerRow="1" IconsPerColumn="1" Filename="bes_promo_tech.dds"/>
+	</IconTextureAtlases>
+	<IconDefinitions>
+		<Replace Name="PROMOTION_SPY_POLYGRAPH" 		Atlas="ICON_ATLAS_FONT_ICON_BES_POLYGRAPH" 		  Index="0"/>
+		<Replace Name="PROMOTION_SPY_QUARTERMASTER" 	Atlas="ICON_ATLAS_FONT_ICON_BES_QUARTERMASTER" 	  Index="0"/>
+		<Replace Name="PROMOTION_SPY_SEDUCTION" 		Atlas="ICON_ATLAS_FONT_ICON_BES_SEDUCTION" 		  Index="0"/>
+		<Replace Name="PROMOTION_SPY_SURVEILLANCE" 		Atlas="ICON_ATLAS_FONT_ICON_BES_SURVEILLANCE" 	  Index="0"/>
+		<Replace Name="PROMOTION_SPY_ACE_DRIVER" 		Atlas="ICON_ATLAS_FONT_ICON_BES_ACE_DRIVER" 	  Index="0"/>
+		<Replace Name="PROMOTION_SPY_CAT_BURGLAR" 		Atlas="ICON_ATLAS_FONT_ICON_BES_CAT_BURGLAR" 	  Index="0"/>
+		<Replace Name="PROMOTION_SPY_CON_ARTIST" 		Atlas="ICON_ATLAS_FONT_ICON_BES_CON_ARTIST" 	  Index="0"/>
+		<Replace Name="PROMOTION_SPY_COVERT_ACTION" 	Atlas="ICON_ATLAS_FONT_ICON_BES_COVERT_ACTION" 	  Index="0"/>
+		<Replace Name="PROMOTION_SPY_DEMOLITIONS" 		Atlas="ICON_ATLAS_FONT_ICON_BES_DEMOLITIONS" 	  Index="0"/>
+		<Replace Name="PROMOTION_SPY_DISGUISE" 			Atlas="ICON_ATLAS_FONT_ICON_BES_DISGUISE" 		  Index="0"/>
+		<Replace Name="PROMOTION_SPY_GUERILLA_LEADER" 	Atlas="ICON_ATLAS_FONT_ICON_BES_GUERILLA_LEADER"  Index="0"/>
+		<Replace Name="PROMOTION_SPY_LICENSE_TO_KILL" 	Atlas="ICON_ATLAS_FONT_ICON_BES_LICENSE_TO_KILL"  Index="0"/>
+		<Replace Name="PROMOTION_SPY_LINGUIST" 			Atlas="ICON_ATLAS_FONT_ICON_BASELINE_6" 		  Index="21"/> <!-- exception using a base game icon -->
+		<Replace Name="PROMOTION_SPY_ROCKET_SCIENTIST" 	Atlas="ICON_ATLAS_FONT_ICON_BES_ROCKET_SCIENTIST" Index="0"/>
+		<Replace Name="PROMOTION_SPY_SATCHEL_CHARGES" 	Atlas="ICON_ATLAS_FONT_ICON_BES_SATCHEL_CHARGES"  Index="0"/>
+		<Replace Name="PROMOTION_SPY_SMEAR_CAMPAIGN" 	Atlas="ICON_ATLAS_FONT_ICON_BES_SMEAR_CAMPAIGN"   Index="0"/>
+		<Replace Name="PROMOTION_SPY_TECHNOLOGIST" 		Atlas="ICON_ATLAS_FONT_ICON_BES_TECHNOLOGIST" 	  Index="0"/>
+	</IconDefinitions>
+</GameInfo>

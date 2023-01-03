@@ -47,23 +47,23 @@ local PromotionIconsDef:table = {
 	PROMOTION_SPY_POLYGRAPH        = "[ICON_PressureDownLarge]",
 	PROMOTION_SPY_QUARTERMASTER    = "[ICON_PressureUpLarge]",
 	PROMOTION_SPY_SEDUCTION        = "[ICON_PressureHigh]",
-	PROMOTION_SPY_SURVEILLANCE     = "[ICON_DISTRICT_CITY_CENTER]", -- ICON_PressureMedium
+	PROMOTION_SPY_SURVEILLANCE     = "[ICON_PROMOTION_SPY_SURVEILLANCE]", -- ICON_PressureMedium
 };
 
 local PromotionIconsOff:table = {
 	-- offensive
-	PROMOTION_SPY_ACE_DRIVER       = "[ICON_GoingTo]",
+	PROMOTION_SPY_ACE_DRIVER       = "[ICON_PROMOTION_SPY_ACE_DRIVER]",
 	PROMOTION_SPY_CAT_BURGLAR      = "[ICON_GreatWork_Landscape_Themed]",
 	PROMOTION_SPY_CON_ARTIST       = "[ICON_GoldLarge]",
-	PROMOTION_SPY_COVERT_ACTION    = "[ICON_UnderSiege]", -- foment unrest
+	PROMOTION_SPY_COVERT_ACTION    = "[ICON_PROMOTION_SPY_COVERT_ACTION]", -- foment unrest
 	PROMOTION_SPY_DEMOLITIONS      = "[ICON_DISTRICT_INDUSTRIAL_ZONE]",
-	PROMOTION_SPY_DISGUISE         = "[ICON_InfluencePerTurn]",
+	PROMOTION_SPY_DISGUISE         = "[ICON_PROMOTION_SPY_DISGUISE]",
 	PROMOTION_SPY_GUERILLA_LEADER  = "[ICON_Barbarian]",
 	PROMOTION_SPY_LICENSE_TO_KILL  = "[ICON_Governor]",
 	PROMOTION_SPY_LINGUIST         = "[ICON_TradeRouteLarge]", --  ICON_LifeSpan ICON_Turn
 	PROMOTION_SPY_ROCKET_SCIENTIST = "[ICON_DISTRICT_SPACEPORT]",
 	PROMOTION_SPY_SATCHEL_CHARGES  = "[ICON_DISTRICT_DAM]",
-	PROMOTION_SPY_SMEAR_CAMPAIGN   = "[ICON_Team]", -- fabricate scandal
+	PROMOTION_SPY_SMEAR_CAMPAIGN   = "[ICON_PROMOTION_SPY_SMEAR_CAMPAIGN]", -- fabricate scandal
 	PROMOTION_SPY_TECHNOLOGIST     = "[ICON_ScienceLarge]",
 };
 
@@ -78,10 +78,12 @@ function GetSpyLevelAndPromotions(unit:table)
 		local promoInfo:table = GameInfo.UnitPromotions[promo];
 		local icon:string = "?";
 		if PromotionIconsDef[promoInfo.UnitPromotionType] then
-			icon = PromotionIconsDef[promoInfo.UnitPromotionType];
+			--icon = PromotionIconsDef[promoInfo.UnitPromotionType];
+			icon = "[ICON_"..promoInfo.UnitPromotionType.."]";
 			sPromosD = sPromosD..icon;
 		elseif PromotionIconsOff[promoInfo.UnitPromotionType] then
-			icon = PromotionIconsOff[promoInfo.UnitPromotionType];
+			--icon = PromotionIconsOff[promoInfo.UnitPromotionType];
+			icon = "[ICON_"..promoInfo.UnitPromotionType.."]";
 			sPromosO = sPromosO..icon;
 		else
 			sPromosD = sPromosD..icon; sPromosO = sPromosO..icon;

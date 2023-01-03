@@ -26,6 +26,29 @@
         <File>Text/BES_Text.xml</File>
       </Items>
     </LocalizedText>
+	<!-- new font icons -->
+	<ImportFiles id="BES_Imports">
+	  <File>Icons/bes_promo_barbs.dds</File>
+	  <File>Icons/bes_promo_counter.dds</File>
+	  <File>Icons/bes_promo_dam.dds</File>
+	  <File>Icons/bes_promo_disguise.dds</File>
+	  <File>Icons/bes_promo_driver.dds</File>
+	  <File>Icons/bes_promo_gold.dds</File>
+	  <File>Icons/bes_promo_governor.dds</File>
+	  <File>Icons/bes_promo_heist.dds</File>
+	  <File>Icons/bes_promo_industry.dds</File>
+	  <File>Icons/bes_promo_loyalty.dds</File>
+	  <File>Icons/bes_promo_rocket.dds</File>
+	  <File>Icons/bes_promo_scandal.dds</File>
+	  <File>Icons/bes_promo_spy_down.dds</File>
+	  <File>Icons/bes_promo_spy_up.dds</File>
+	  <File>Icons/bes_promo_surveillence.dds</File>
+	  <File>Icons/bes_promo_tech.dds</File>
+	</ImportFiles>
+	<UpdateIcons id="BES_Icons">
+	  <Properties><LoadOrder>300</LoadOrder></Properties>
+	  <File>Icons/FontIconsBES.xml</File>
+	</UpdateIcons>
   </InGameActions>
   <Files>
     <File>UI/EspionageSupport_BES.lua</File>
@@ -34,5 +57,23 @@
     <File>UI/espionageoverview.lua</File>
     <File>UI/espionageoverview.xml</File>
     <File>Text/BES_Text.xml</File>
+	<!-- new font icons -->
+	<File>Icons/FontIconsBES.xml</File>
+	<File>Icons/bes_promo_barbs.dds</File>
+	<File>Icons/bes_promo_counter.dds</File>
+	<File>Icons/bes_promo_dam.dds</File>
+	<File>Icons/bes_promo_disguise.dds</File>
+	<File>Icons/bes_promo_driver.dds</File>
+	<File>Icons/bes_promo_gold.dds</File>
+	<File>Icons/bes_promo_governor.dds</File>
+	<File>Icons/bes_promo_heist.dds</File>
+	<File>Icons/bes_promo_industry.dds</File>
+	<File>Icons/bes_promo_loyalty.dds</File>
+	<File>Icons/bes_promo_rocket.dds</File>
+	<File>Icons/bes_promo_scandal.dds</File>
+	<File>Icons/bes_promo_spy_down.dds</File>
+	<File>Icons/bes_promo_spy_up.dds</File>
+	<File>Icons/bes_promo_surveillence.dds</File>
+	<File>Icons/bes_promo_tech.dds</File>
   </Files>
 </Mod>
