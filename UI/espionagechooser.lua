@@ -59,6 +59,18 @@ local m_filterSelected:number = 1;
 local m_DistrictFilterChoiceIM:table = InstanceManager:new("DistrictsFilterInstance", "DistrictsFilterButton", Controls.DistrictsFilterStack);
 local m_DistrictFilterSelection:table = {}
 
+-- Infixo 2023-01-03 operation filtering
+local OperationFilters:table = {
+	UNITOPERATION_SPY_BREACH_DAM = false,
+	UNITOPERATION_SPY_DISRUPT_ROCKETRY = false,
+	UNITOPERATION_SPY_GREAT_WORK_HEIST = false,
+	UNITOPERATION_SPY_NEUTRALIZE_GOVERNOR = false,
+	UNITOPERATION_SPY_RECRUIT_PARTISANS = false,
+	UNITOPERATION_SPY_SABOTAGE_PRODUCTION = false,
+	UNITOPERATION_SPY_SIPHON_FUNDS = false,
+	UNITOPERATION_SPY_STEAL_TECH_BOOST = false,
+};
+
 -- debug routine - prints a table (no recursion)
 function dshowtable(tTable:table)
 	for k,v in pairs(tTable) do
@@ -464,6 +476,23 @@ end
 
 -- ===========================================================================
 function AddDestination(city:table)
+
+	-- Infixo 2023-01-03 additional filters for operation types
+	-- for efficiency we will only check the "checked" conditions :)
+	local function CheckIfOperationCanBeStarted(opType:string)
+		-- this is assumed to be called only when a filter is active
+		-- it will return from the AddDestination if the op cannot be started
+		local operation:table = GameInfo.UnitOperations[opType];
+		local cityPlot:table = Map.GetPlot(city:GetX(), city:GetY());
+		local canStart:boolean, results:table = UnitManager.CanStartOperation( m_spy, operation.Hash, cityPlot, false, true);
+		return canStart;
+	end
+	-- iterate through the filters
+	for opType,isSelected in pairs(OperationFilters) do
+		if isSelected and not CheckIfOperationCanBeStarted(opType) then return; end
+	end
+
+	-- if all checks are passed then the city can be added to the stack
     local destinationInstance:table = m_RouteChoiceIM:GetInstance();
 
     -- Update city name and banner color
@@ -787,11 +816,16 @@ function RefreshFilters()
 
     -- Add Players Filter
     local players:table = Game.GetPlayers();
+	local localPlayer:number = Game.GetLocalPlayer();
+	local playerDiplomacy:table = Players[localPlayer]:GetDiplomacy();
     for i, pPlayer in ipairs(players) do
         if ShouldAddToFilter(pPlayer) then
             if pPlayer:IsMajor() then
                 local playerConfig:table = PlayerConfigurations[pPlayer:GetID()];
                 local name = Locale.Lookup(GameInfo.Civilizations[playerConfig:GetCivilizationTypeID()].Name);
+				if localPlayer ~= pPlayer:GetID() and playerDiplomacy:GetAllianceType(pPlayer:GetID()) ~= -1 then
+					name = name .. "[ICON_AllianceBlue]";
+				end
                 AddFilter(name, function(a) return a:GetID() == pPlayer:GetID() end);
             end
         end
@@ -850,7 +884,7 @@ function OnFilterSelected( index:number, filterIndex:number )
     m_filterSelected = filterIndex;
     Controls.FilterButton:SetText(m_filterList[m_filterSelected].FilterText);
 
-    print("selected filter " .. m_filterSelected)
+    --print("selected filter " .. m_filterSelected)
     Refresh();
 end
 
@@ -958,6 +992,59 @@ function OnDistrictFilterPanelClose()
     Controls.DistrictsFilterGrid:SetHide(true)
     Controls.DistrictsFilterShownButton:SetTextureOffsetVal(0, 0)
 end
+
+-- ---------------------------------------------------------------------------
+-- Infixo 2023-01-03 Operation Filters
+-- ---------------------------------------------------------------------------
+
+function OnMissionKillGovButton()
+	OperationFilters.UNITOPERATION_SPY_NEUTRALIZE_GOVERNOR = not OperationFilters.UNITOPERATION_SPY_NEUTRALIZE_GOVERNOR;
+	Controls.MissionKillGovArrow:SetHide(not OperationFilters.UNITOPERATION_SPY_NEUTRALIZE_GOVERNOR);
+	Refresh();
+end
+
+function OnMissionStealTechButton()
+	OperationFilters.UNITOPERATION_SPY_STEAL_TECH_BOOST = not OperationFilters.UNITOPERATION_SPY_STEAL_TECH_BOOST;
+	Controls.MissionStealTechArrow:SetHide(not OperationFilters.UNITOPERATION_SPY_STEAL_TECH_BOOST);
+	Refresh();
+end
+
+function OnMissionStealGoldButton()
+	OperationFilters.UNITOPERATION_SPY_SIPHON_FUNDS = not OperationFilters.UNITOPERATION_SPY_SIPHON_FUNDS;
+	Controls.MissionStealGoldArrow:SetHide(not OperationFilters.UNITOPERATION_SPY_SIPHON_FUNDS);
+	Refresh();
+end
+
+function OnMissionStealWorkButton()
+	OperationFilters.UNITOPERATION_SPY_GREAT_WORK_HEIST = not OperationFilters.UNITOPERATION_SPY_GREAT_WORK_HEIST;
+	Controls.MissionStealWorkArrow:SetHide(not OperationFilters.UNITOPERATION_SPY_GREAT_WORK_HEIST);
+	Refresh();
+end
+
+function OnMissionIndustrialButton()
+	OperationFilters.UNITOPERATION_SPY_SABOTAGE_PRODUCTION = not OperationFilters.UNITOPERATION_SPY_SABOTAGE_PRODUCTION;
+	Controls.MissionIndustrialArrow:SetHide(not OperationFilters.UNITOPERATION_SPY_SABOTAGE_PRODUCTION);
+	Refresh();
+end
+
+function OnMissionPartisansButton()
+	OperationFilters.UNITOPERATION_SPY_RECRUIT_PARTISANS = not OperationFilters.UNITOPERATION_SPY_RECRUIT_PARTISANS;
+	Controls.MissionPartisansArrow:SetHide(not OperationFilters.UNITOPERATION_SPY_RECRUIT_PARTISANS);
+	Refresh();
+end
+
+function OnMissionSpaceportButton()
+	OperationFilters.UNITOPERATION_SPY_DISRUPT_ROCKETRY = not OperationFilters.UNITOPERATION_SPY_DISRUPT_ROCKETRY;
+	Controls.MissionSpaceportArrow:SetHide(not OperationFilters.UNITOPERATION_SPY_DISRUPT_ROCKETRY);
+	Refresh();
+end
+
+function OnMissionBreachDamButton()
+	OperationFilters.UNITOPERATION_SPY_BREACH_DAM = not OperationFilters.UNITOPERATION_SPY_BREACH_DAM;
+	Controls.MissionBreachDamArrow:SetHide(not OperationFilters.UNITOPERATION_SPY_BREACH_DAM);
+	Refresh();
+end
+
 
 -- ===========================================================================
 function Open()
@@ -1219,6 +1306,15 @@ function Initialize()
             end
         end);
 
+	-- Infixo 2023-01-03 operation filters
+    Controls.MissionKillGovButton:RegisterCallback(    Mouse.eLClick, OnMissionKillGovButton );
+    Controls.MissionStealTechButton:RegisterCallback(  Mouse.eLClick, OnMissionStealTechButton );
+    Controls.MissionStealGoldButton:RegisterCallback(  Mouse.eLClick, OnMissionStealGoldButton );
+    Controls.MissionStealWorkButton:RegisterCallback(  Mouse.eLClick, OnMissionStealWorkButton );
+    Controls.MissionIndustrialButton:RegisterCallback( Mouse.eLClick, OnMissionIndustrialButton );
+    Controls.MissionPartisansButton:RegisterCallback(  Mouse.eLClick, OnMissionPartisansButton );
+    Controls.MissionSpaceportButton:RegisterCallback(  Mouse.eLClick, OnMissionSpaceportButton );
+    Controls.MissionBreachDamButton:RegisterCallback(  Mouse.eLClick, OnMissionBreachDamButton );
 
     -- Game Engine Events
     Events.InterfaceModeChanged.Add( OnInterfaceModeChanged );

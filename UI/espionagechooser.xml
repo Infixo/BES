@@ -91,46 +91,45 @@
 	  <!-- Order the same as districts in database; please note that districts below are ordered as they had been built, so randomly :( -->
 	  <!-- missions always available are not filtered (i.e. loyalty, gain sources, listening post) are not filtered -->
 	  <!-- city center - neutralize gov -->
-	  <GridButton ID="MissionKillGovButton" ToolTip="{LOC_GOVT_FILTER_W_DOTS} {LOC_UNITOPERATION_SPY_NEUTRALIZE_GOVERNOR_DESCRIPTION}" Size="37,24" Style="PanelButtonLightweight">
+	  <GridButton ID="MissionKillGovButton" ToolTip="{LOC_UI_CLICK}[ICON_GoingTo]{LOC_GOVT_FILTER_W_DOTS} {LOC_UNITOPERATION_SPY_NEUTRALIZE_GOVERNOR_DESCRIPTION}" Size="37,24" Style="PanelButtonLightweight">
 		<Label Anchor="L,C" Offset="1,3" String="[ICON_PROMOTION_SPY_LICENSE_TO_KILL]"/>
-		<Image ID="MissionKillGovArrow" Texture="Controls_ButtonExtendSmall" TextureOffset="0,64" Size="20,16" Anchor="R,C" Offset="0,0"/>
+		<Image ID="MissionKillGovArrow" Texture="Controls_ButtonExtendSmall" TextureOffset="0,64" Size="20,16" Anchor="R,C" Offset="0,0" Hidden="1" />
 	  </GridButton>
 	  <!-- campus - steal tech -->
-	  <GridButton ID="MissionStealTechButton" ToolTip="LOC_UNITOPERATION_SPY_STEAL_TECH_BOOST_DESCRIPTION" Size="37,24" Color="255,255,255,220" Style="PanelButtonLightweight">
+	  <GridButton ID="MissionStealTechButton" ToolTip="{LOC_UI_CLICK}[ICON_GoingTo]{LOC_GOVT_FILTER_W_DOTS} {LOC_UNITOPERATION_SPY_STEAL_TECH_BOOST_DESCRIPTION}" Size="37,24" Style="PanelButtonLightweight">
 		<Label Anchor="L,C" Offset="1,3" String="[ICON_PROMOTION_SPY_TECHNOLOGIST]"/>
-		<Image ID="MissionStealTechArrow" Texture="Controls_ButtonExtendSmall" TextureOffset="0,80" Size="20,16" Anchor="R,C" Offset="0,0"/>
+		<Image ID="MissionStealTechArrow" Texture="Controls_ButtonExtendSmall" TextureOffset="0,80" Size="20,16" Anchor="R,C" Offset="0,0" Hidden="1" />
 	  </GridButton>
 	  <!-- commercial - steal money -->
-	  <GridButton ID="MissionStealGoldButton" ToolTip="LOC_UNITOPERATION_SPY_SIPHON_FUNDS_DESCRIPTION" Size="37,24" Color="255,255,255,220" Style="PanelButtonLightweight">
+	  <GridButton ID="MissionStealGoldButton" ToolTip="{LOC_UI_CLICK}[ICON_GoingTo]{LOC_GOVT_FILTER_W_DOTS} {LOC_UNITOPERATION_SPY_SIPHON_FUNDS_DESCRIPTION}" Size="37,24" Style="PanelButtonLightweight">
 		<Label Anchor="L,C" Offset="1,3" String="[ICON_PROMOTION_SPY_CON_ARTIST]"/>
-		<Image ID="MissionStealGoldArrow" Texture="Controls_ButtonExtendSmall" TextureOffset="0,96" Size="20,16" Anchor="R,C" Offset="0,0"/>
+		<Image ID="MissionStealGoldArrow" Texture="Controls_ButtonExtendSmall" TextureOffset="0,96" Size="20,16" Anchor="R,C" Offset="0,0" Hidden="1" />
 	  </GridButton>
 	  <!-- theater - steal great work -->
-	  <GridButton ID="MissionStealWorkButton" ToolTip="LOC_UNITOPERATION_SPY_GREAT_WORK_HEIST_DESCRIPTION" Size="37,24" Style="PanelButtonLightweight">
+	  <GridButton ID="MissionStealWorkButton" ToolTip="{LOC_UI_CLICK}[ICON_GoingTo]{LOC_GOVT_FILTER_W_DOTS} {LOC_UNITOPERATION_SPY_GREAT_WORK_HEIST_DESCRIPTION}" Size="37,24" Style="PanelButtonLightweight">
 		<Label Anchor="L,C" Offset="1,3" String="[ICON_PROMOTION_SPY_CAT_BURGLAR]"/>
-		<Image ID="MissionStealWorkArrow" Texture="Controls_ButtonExtendSmall" TextureOffset="0,64" Size="20,16" Anchor="R,C" Offset="0,0"/>
+		<Image ID="MissionStealWorkArrow" Texture="Controls_ButtonExtendSmall" TextureOffset="0,64" Size="20,16" Anchor="R,C" Offset="0,0" Hidden="1" />
 	  </GridButton>
 	  <!-- industrial - destroy -->
-	  <GridButton ID="MissionIndustrialButton" ToolTip="LOC_UNITOPERATION_SPY_SABOTAGE_PRODUCTION_DESCRIPTION" Size="37,24" Style="PanelButtonLightweight">
+	  <GridButton ID="MissionIndustrialButton" ToolTip="{LOC_UI_CLICK}[ICON_GoingTo]{LOC_GOVT_FILTER_W_DOTS} {LOC_UNITOPERATION_SPY_SABOTAGE_PRODUCTION_DESCRIPTION}" Size="37,24" Style="PanelButtonLightweight">
 		<Label Anchor="L,C" Offset="1,3" String="[ICON_PROMOTION_SPY_DEMOLITIONS]"/>
-		<Image ID="MissionIndustrialArrow" Texture="Controls_ButtonExtendSmall" TextureOffset="0,64" Size="20,16" Anchor="R,C" Offset="0,0"/>
+		<Image ID="MissionIndustrialArrow" Texture="Controls_ButtonExtendSmall" TextureOffset="0,64" Size="20,16" Anchor="R,C" Offset="0,0" Hidden="1" />
 	  </GridButton>
 	  <!-- neighborhood - partisans-->
-	  <GridButton ID="MissionPartisansButton" ToolTip="LOC_UNITOPERATION_SPY_RECRUIT_PARTISANS_DESCRIPTION" Size="37,24" Style="PanelButtonLightweight">
+	  <GridButton ID="MissionPartisansButton" ToolTip="{LOC_UI_CLICK}[ICON_GoingTo]{LOC_GOVT_FILTER_W_DOTS} {LOC_UNITOPERATION_SPY_RECRUIT_PARTISANS_DESCRIPTION}" Size="37,24" Style="PanelButtonLightweight">
 		<Label Anchor="L,C" Offset="1,3" String="[ICON_PROMOTION_SPY_GUERILLA_LEADER]"/>
-		<Image ID="MissionPartisansArrow" Texture="Controls_ButtonExtendSmall" TextureOffset="0,64" Size="20,16" Anchor="R,C" Offset="0,0"/>
+		<Image ID="MissionPartisansArrow" Texture="Controls_ButtonExtendSmall" TextureOffset="0,64" Size="20,16" Anchor="R,C" Offset="0,0" Hidden="1" />
 	  </GridButton>
 	  <!-- spaceport - disrupt -->
-	  <GridButton ID="MissionSpaceportButton" ToolTip="LOC_UNITOPERATION_SPY_DISRUPT_ROCKETRY_DESCRIPTION" Size="37,24" Style="PanelButtonLightweight">
+	  <GridButton ID="MissionSpaceportButton" ToolTip="{LOC_UI_CLICK}[ICON_GoingTo]{LOC_GOVT_FILTER_W_DOTS} {LOC_UNITOPERATION_SPY_DISRUPT_ROCKETRY_DESCRIPTION}" Size="37,24" Style="PanelButtonLightweight">
 		<Label Anchor="L,C" Offset="1,3" String="[ICON_PROMOTION_SPY_ROCKET_SCIENTIST]"/>
-		<Image ID="MissionSpaceportArrow" Texture="Controls_ButtonExtendSmall" TextureOffset="0,64" Size="20,16" Anchor="R,C" Offset="0,0"/>
+		<Image ID="MissionSpaceportArrow" Texture="Controls_ButtonExtendSmall" TextureOffset="0,64" Size="20,16" Anchor="R,C" Offset="0,0" Hidden="1" />
 	  </GridButton>
 	  <!-- dam - breach -->
-	  <GridButton ID="MissionBreachDamButton" ToolTip="LOC_UNITOPERATION_SPY_BREACH_DAM_DESCRIPTION" Size="37,24" Style="PanelButtonLightweight">
+	  <GridButton ID="MissionBreachDamButton" ToolTip="{LOC_UI_CLICK}[ICON_GoingTo]{LOC_GOVT_FILTER_W_DOTS} {LOC_UNITOPERATION_SPY_BREACH_DAM_DESCRIPTION}" Size="37,24" Style="PanelButtonLightweight">
 		<Label Anchor="L,C" Offset="1,3" String="[ICON_PROMOTION_SPY_SATCHEL_CHARGES]"/>
-		<Image ID="MissionBreachDamArrow" Texture="Controls_ButtonExtendSmall" TextureOffset="0,64" Size="20,16" Anchor="R,C" Offset="0,0"/>
+		<Image ID="MissionBreachDamArrow" Texture="Controls_ButtonExtendSmall" TextureOffset="0,64" Size="20,16" Anchor="R,C" Offset="0,0" Hidden="1" />
 	  </GridButton>
-	  <!-- maybe fabricate scandal if it would fit, but it is easily filtered by an existing pulldown - choose City-States -->
 	</Stack>
 
     <!-- Destination Panel -->

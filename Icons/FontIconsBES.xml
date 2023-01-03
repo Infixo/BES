@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
  Better Espionage Screen
  Author: Infixo
  2023-01-02: Created
 -->
-
 <GameInfo>
 	<IconTextureAtlases>
+		<!-- For some reason, the size 20 icons for spy ops are not defined in the base game despite the fact that proper textures exist. -->
+		<Row Name="ICON_ATLAS_SPYOPERATIONS" IconSize="20" IconsPerRow="9" IconsPerColumn="1" Filename="EspionageMissions20.dds"/>
 		<!-- Font Icons require special Baseline attribute (so keep separate) -->
 		<Replace Name="ICON_ATLAS_FONT_ICON_BES_GUERILLA_LEADER"  Baseline="4" IconSize="22" IconsPerRow="1" IconsPerColumn="1" Filename="bes_promo_barbs.dds"/>
 		<Replace Name="ICON_ATLAS_FONT_ICON_BES_SEDUCTION" 		  Baseline="4" IconSize="22" IconsPerRow="1" IconsPerColumn="1" Filename="bes_promo_counter.dds"/>

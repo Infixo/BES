@@ -55,7 +55,6 @@
 	</ImportFiles>
 	<UpdateIcons id="BES_Icons">
 	  <Properties><LoadOrder>300</LoadOrder></Properties>
-	  <File>Icons/SpyOperationsBES.xml</File>
 	  <File>Icons/FontIconsBES.xml</File>
 	</UpdateIcons>
   </InGameActions>
@@ -64,7 +63,6 @@
     <File>UI/espionagechooser.xml</File>
     <File>UI/espionageoverview.lua</File>
     <File>UI/espionageoverview.xml</File>
-	<File>Icons/SpyOperationsBES.xml</File>
 	<!-- new font icons -->
 	<File>Icons/FontIconsBES.xml</File>
 	<File>Icons/bes_promo_barbs.dds</File>
