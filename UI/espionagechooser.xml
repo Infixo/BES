@@ -75,7 +75,7 @@
 	
 	<GridButton ID="SourcesGainedButton" ToolTip="[ICON_Checkmark]{LOC_UNITOPERATION_SPY_GAIN_SOURCES_DESCRIPTION}" Size="37,24" Offset="235,137" Style="PanelButtonLightweight">
 	  <Image Anchor="L,C" Size="20,20" Offset="0,0" Texture="EspionageMissions20" TextureOffset="20,0"/> <!-- Gain sources -->
-	  <Image ID="ProductionAscArrow" Texture="Controls_ButtonExtendSmall" TextureOffset="0,64" Size="20,16" Anchor="R,C" Offset="0,0"/>
+	  <Image ID="SourcesGainedArrow" Texture="Controls_ButtonExtendSmall" TextureOffset="0,64" Size="20,16" Anchor="R,C" Offset="0,0" Hidden="1" />
 	</GridButton>
 
     <Button ID="DistrictsFilterShownButton" Size="40,40"  Anchor="R,T" Offset="2,130" Texture="LaunchBar_Hook_ButtonSmall" Style="ButtonDisabledText">

@@ -60,6 +60,7 @@ local m_DistrictFilterChoiceIM:table = InstanceManager:new("DistrictsFilterInsta
 local m_DistrictFilterSelection:table = {}
 
 -- Infixo 2023-01-03 operation filtering
+local m_gainSourcesFilter:boolean = false;
 local OperationFilters:table = {
 	UNITOPERATION_SPY_BREACH_DAM = false,
 	UNITOPERATION_SPY_DISRUPT_ROCKETRY = false,
@@ -117,11 +118,11 @@ function RefreshTop()
         Controls.ActiveBoostContainer:SetHide(true);
         Controls.NoActiveBoostLabel:SetHide(true);
 
-        -- If we've selected a city then show the district icons for that city
+        -- If we've selected a city then show the boost info
         if m_city then
 
-            AddDistrictIcons(Controls, m_city);
-            Controls.DistrictInfo:SetHide(false);
+            --AddDistrictIcons(Controls, m_city);
+            Controls.DistrictInfo:SetHide(true);
             Controls.SelectACityMessage:SetHide(true);
 
             Controls.MissionGrid:SetOffsetX(DESTINATION_CHOOSER_MISSIONSCROLLPANEL_OFFSET_X);
@@ -148,15 +149,15 @@ function RefreshTop()
         Controls.BannerBase:SetHide(false);
 
         UpdateCityBanner(m_city);
-
-        -- Update active gain sources boost message
+	end
+    -- Update active gain sources boost message regardless of the mode, if the city is selected
+	if m_city then
         local player = Players[Game.GetLocalPlayer()];
         local playerDiplomacy:table = player:GetDiplomacy();
         if playerDiplomacy then
             local boostedTurnsRemaining:number = playerDiplomacy:GetSourceTurnsRemaining(m_city);
             if boostedTurnsRemaining > 0 then
                 TruncateStringWithTooltip(Controls.ActiveBoostLabel, MAX_BEFORE_TRUNC_CHOOSE_NEXT, Locale.Lookup("LOC_ESPIONAGECHOOSER_GAIN_SOURCES_ACTIVE", boostedTurnsRemaining));
-
                 --Controls.ActiveBoostLabel:SetText(Locale.Lookup("LOC_ESPIONAGECHOOSER_GAIN_SOURCES_ACTIVE", boostedTurnsRemaining));
                 Controls.ActiveBoostContainer:SetHide(false);
                 Controls.NoActiveBoostLabel:SetHide(true);
@@ -165,7 +166,7 @@ function RefreshTop()
                 Controls.NoActiveBoostLabel:SetHide(false);
             end
         end
-    end
+	end
 end
 
 -- ===========================================================================
@@ -491,6 +492,14 @@ function AddDestination(city:table)
 	for opType,isSelected in pairs(OperationFilters) do
 		if isSelected and not CheckIfOperationCanBeStarted(opType) then return; end
 	end
+	
+	-- Gain sources filter
+    local boostedTurnsRemaining:number = 0;
+    local playerDiplomacy:table = Players[Game.GetLocalPlayer()]:GetDiplomacy();
+    if playerDiplomacy then
+        boostedTurnsRemaining = playerDiplomacy:GetSourceTurnsRemaining(city);
+        if m_gainSourcesFilter and boostedTurnsRemaining <= 0 then return; end
+    end
 
 	-- if all checks are passed then the city can be added to the stack
     local destinationInstance:table = m_RouteChoiceIM:GetInstance();
@@ -525,19 +534,13 @@ function AddDestination(city:table)
     destinationInstance.DestinationButton:RegisterCallback( Mouse.eLClick, function() OnSelectDestination(city);  end);
 	
 	-- Infixo 2023-01-03, BES extra information
-
     -- Update gain sources boost icon
-    local player = Players[Game.GetLocalPlayer()];
-    local playerDiplomacy:table = player:GetDiplomacy();
-    if playerDiplomacy then
-        local boostedTurnsRemaining:number = playerDiplomacy:GetSourceTurnsRemaining(city);
-        if boostedTurnsRemaining > 0 then
-            destinationInstance.GainSourcesBoostIcon:SetHide(false);
-            destinationInstance.GainSourcesBoostIcon:SetToolTipString(Locale.Lookup("LOC_ESPIONAGECHOOSER_GAIN_SOURCES_ACTIVE", boostedTurnsRemaining));
-        else
-            destinationInstance.GainSourcesBoostIcon:SetHide(true);
-        end
-    end
+	if boostedTurnsRemaining > 0 then
+		destinationInstance.GainSourcesBoostIcon:SetHide(false);
+		destinationInstance.GainSourcesBoostIcon:SetToolTipString(Locale.Lookup("LOC_ESPIONAGECHOOSER_GAIN_SOURCES_ACTIVE", boostedTurnsRemaining));
+	else
+		destinationInstance.GainSourcesBoostIcon:SetHide(true);
+	end
 
 	-- Check mission history for the city and find out about the last mission and the danger
 	--[[
@@ -823,7 +826,7 @@ function RefreshFilters()
             if pPlayer:IsMajor() then
                 local playerConfig:table = PlayerConfigurations[pPlayer:GetID()];
                 local name = Locale.Lookup(GameInfo.Civilizations[playerConfig:GetCivilizationTypeID()].Name);
-				if localPlayer ~= pPlayer:GetID() and playerDiplomacy:GetAllianceType(pPlayer:GetID()) ~= -1 then
+				if localPlayer ~= pPlayer:GetID() and playerDiplomacy:GetAllianceType(pPlayer:GetID()) ~= -1 then -- Infixo 2023-01-03 alliance icon - no spies allowed
 					name = name .. "[ICON_AllianceBlue]";
 				end
                 AddFilter(name, function(a) return a:GetID() == pPlayer:GetID() end);
@@ -951,7 +954,7 @@ function BuildDistrictFilterPanel()
                 kInstance.DistrictLabel:SetText(sLabel);
                 kInstance.DistrictsFilterButton:RegisterCallback(Mouse.eLClick,
                     function()
-                        print(row.DistrictType)
+                        --print(row.DistrictType)
                         if not m_DistrictFilterSelection[row.DistrictType] then
                             kInstance.DistrictsFilterButton:SetTextureOffsetVal(0, 24)
                             m_DistrictFilterSelection[row.DistrictType] = true
@@ -996,6 +999,12 @@ end
 -- ---------------------------------------------------------------------------
 -- Infixo 2023-01-03 Operation Filters
 -- ---------------------------------------------------------------------------
+
+function OnSourcesGainedButton()
+	m_gainSourcesFilter = not m_gainSourcesFilter;
+	Controls.SourcesGainedArrow:SetHide(not m_gainSourcesFilter);
+	Refresh();
+end
 
 function OnMissionKillGovButton()
 	OperationFilters.UNITOPERATION_SPY_NEUTRALIZE_GOVERNOR = not OperationFilters.UNITOPERATION_SPY_NEUTRALIZE_GOVERNOR;
@@ -1307,6 +1316,7 @@ function Initialize()
         end);
 
 	-- Infixo 2023-01-03 operation filters
+    Controls.SourcesGainedButton:RegisterCallback(     Mouse.eLClick, OnSourcesGainedButton );
     Controls.MissionKillGovButton:RegisterCallback(    Mouse.eLClick, OnMissionKillGovButton );
     Controls.MissionStealTechButton:RegisterCallback(  Mouse.eLClick, OnMissionStealTechButton );
     Controls.MissionStealGoldButton:RegisterCallback(  Mouse.eLClick, OnMissionStealGoldButton );
