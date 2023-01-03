@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameData>
+  <LocalizedText>
+    <!-- POLISH -->
+    <Replace Tag="LOC_ESPIONAGECHOOSER_FILTER_ALL" Language="pl_PL">
+      <Text>Wszystko</Text>
+    </Replace>
+    <Replace Tag="LOC_ESPIONAGECHOOSER_FILTER_SHOW_CITIES" Language="pl_PL">
+      <Text>Pokaż miasta</Text>
+    </Replace>
+    <Replace Tag="LOC_ESPIONAGECHOOSER_FILTER_INTERNATIONAL" Language="pl_PL">
+      <Text>Obce państwa</Text>
+    </Replace>
+  </LocalizedText>
+</GameData>

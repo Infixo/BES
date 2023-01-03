@@ -190,8 +190,7 @@
 		<!-- BES new icons -->
 		<Image ID="CityProtectedIcon" Anchor="L,C" Offset="-1,-3" Icon="ICON_NOTIFICATION_NOTIFICATION_EMERGENCY_FAILED" Size="33,33" /><!-- Stop sign - agent was captured or killed here -->
         <Image ID="GainSourcesBoostIcon" Anchor="R,T" Size="20,20" Offset="42,4" Texture="EspionageMissions20" TextureOffset="20,0"/> <!-- Gain sources -->
-		<Image ID="LastMissionIcon" Anchor="R,T" Size="20,20" Offset="64,4" Texture="EspionageMissions20" TextureOffset="160,0" StretchMode="UniformToFill" /><!-- Last mission, details in the tooltip -->
-		<Label ID="LastMissionLabel" Anchor="R,C" Size="24,20" Offset="90,-1" String="[ICON_PROMOTION_SPY_CAT_BURGLAR]" />
+		<Image ID="LastMissionIcon" Anchor="R,T" Size="20,20" Offset="64,4" Texture="EspionageMissions20" TextureOffset="160,0" /><!-- Last mission, details in the tooltip -->
       </Grid>
 
       <!-- District Info -->

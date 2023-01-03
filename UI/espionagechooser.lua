@@ -59,6 +59,23 @@ local m_filterSelected:number = 1;
 local m_DistrictFilterChoiceIM:table = InstanceManager:new("DistrictsFilterInstance", "DistrictsFilterButton", Controls.DistrictsFilterStack);
 local m_DistrictFilterSelection:table = {}
 
+-- debug routine - prints a table (no recursion)
+function dshowtable(tTable:table)
+	for k,v in pairs(tTable) do
+		print(k, type(v), tostring(v));
+	end
+end
+
+-- debug routine - prints a table, and tables inside recursively (up to 5 levels)
+function dshowrectable(tTable:table, iLevel:number)
+	local level:number = 0;
+	if iLevel ~= nil then level = iLevel; end
+	for k,v in pairs(tTable) do
+		print(string.rep("---:",level), k, type(v), tostring(v));
+		if type(v) == "table" and level < 5 then dshowrectable(v, level+1); end
+	end
+end
+
 -- ===========================================================================
 function Refresh()
     if m_spy == nil then
@@ -479,13 +496,6 @@ function AddDestination(city:table)
     destinationInstance.DestinationButton:RegisterCallback( Mouse.eLClick, function() OnSelectDestination(city);  end);
 	
 	-- Infixo 2023-01-03, BES extra information
-	--[[
-		<!-- BES new icons -->
-		<Image ID="CityProtectedIcon" Anchor="L,C" Offset="-1,-3" Icon="ICON_NOTIFICATION_NOTIFICATION_EMERGENCY_FAILED" Size="33,33" /><!-- Stop sign - agent was captured or killed here -->
-        <Image ID="GainSourcesBoostIcon" Anchor="R,T" Size="20,20" Offset="42,4" Texture="EspionageMissions20" TextureOffset="20,0"/> <!-- Gain sources -->
-		<Image ID="LastMissionIcon" Anchor="R,T" Size="20,20" Offset="64,4" Texture="EspionageMissions20" TextureOffset="160,0" /><!-- Last mission, details in the tooltip -->
-		<Label ID="LastMissionLabel" Anchor="R,C" Size="24,20" Offset="90,-1" String="[ICON_PROMOTION_SPY_CAT_BURGLAR]" />
-	--]]
 
     -- Update gain sources boost icon
     local player = Players[Game.GetLocalPlayer()];
@@ -501,6 +511,18 @@ function AddDestination(city:table)
     end
 
 	-- Check mission history for the city and find out about the last mission and the danger
+	--[[
+	Mission history fields: Operation, PlotIndex, LootInfo, LevelAfter, CityName, CompletionTurn, Name, InitialResult -> EspionageResultTypes, EscapeResult -> EspionageResultTypes
+	EspionageResultTypes
+	NO_RESULT				number	-1
+	KILLED					number	0
+	CAPTURED				number	1
+	FAIL_MUST_ESCAPE		number	2
+	FAIL_UNDETECTED			number	3
+	SUCCESS_MUST_ESCAPE   	number	4
+	SUCCESS_UNDETECTED    	number	5
+	NUM_ESPIONAGE_RESULTS 	number	6
+	--]]
 	local lastMission:table = nil;
 	local riskMission:table = nil;
     if playerDiplomacy then
@@ -551,28 +573,10 @@ function AddDestination(city:table)
 	
 	-- show last mission details
 	if lastMission ~= nil then
-		--[[
-	    local operationInfo:table = GameInfo.UnitOperations[lastMission.Operation];
-		local tt:table = {}; -- build tooltip
-		table.insert(tt, Locale.ToUpper(lastMission.Name)); -- agent name
-		local turnsSinceMission:number = Game.GetCurrentGameTurn() - lastMission.CompletionTurn;
-		table.insert(tt, Locale.Lookup(operationInfo.Description)..", "..Locale.Lookup("LOC_ESPIONAGEOVERVIEW_TURNS_AGO", turnsSinceMission)); -- mission name & when
-		-- Update outcome and font icon
-		local outcomeDetails:table = GetMissionOutcomeDetails(lastMission);
-		if outcomeDetails then
-			table.insert(tt, outcomeDetails.Description);
-			if outcomeDetails.Success then table.insert(tt, "[COLOR_Green]"..Locale.ToUpper("LOC_ESPIONAGEOVERVIEW_SUCCESS").."[ICON_CheckSuccess][ENDCOLOR]");
-			else                           table.insert(tt, "[COLOR_Red]"..Locale.ToUpper("LOC_ESPIONAGEOVERVIEW_FAILURE").."[ICON_CheckFail][ENDCOLOR]"); end
-			if outcomeDetails.SpyStatus ~= "" then
-				table.insert(tt, "[COLOR_Red]"..outcomeDetails.SpyStatus.."[ENDCOLOR]");
-			end
-		end
-		destinationInstance.LastMissionIcon:SetToolTipString(table.concat(tt, "[NEWLINE]"));
-		--]]
 		SetMissionToolTip(lastMission, destinationInstance.LastMissionIcon);
 		-- Update mission icon
 	    local operationInfo:table = GameInfo.UnitOperations[lastMission.Operation];
-		local textureOffsetX, textureOffsetY, textureSheet = IconManager:FindIconAtlas(operationInfo.Icon,40);
+		local textureOffsetX, textureOffsetY, textureSheet = IconManager:FindIconAtlas(operationInfo.Icon,20);
 		if textureSheet then
 			destinationInstance.LastMissionIcon:SetTexture(textureOffsetX, textureOffsetY, textureSheet);
 		else
@@ -853,6 +857,30 @@ end
 -- ---------------------------------------------------------------------------
 -- Disctrict Filter Panel
 -- ---------------------------------------------------------------------------
+
+function hasDistrict(city:table, districtType:string)
+    local hasDistrict:boolean = false;
+    local cityDistricts:table = city:GetDistricts();
+    for i, district in cityDistricts:Members() do
+        if district:IsComplete() and not district:IsPillaged() then --ARISTOS: to only show available and valid targets in each city, both for espionage overview and selector
+            --gets the district type of the currently selected district
+            local districtInfo:table = GameInfo.Districts[district:GetType()];
+            local currentDistrictType = districtInfo.DistrictType
+
+            --assigns currentDistrictType to be the general type of district (i.e. DISTRICT_HANSA becomes DISTRICT_INDUSTRIAL_ZONE)
+            local replaces = GameInfo.DistrictReplaces[districtInfo.Hash];
+            if replaces then
+                currentDistrictType = GameInfo.Districts[replaces.ReplacesDistrictType].DistrictType
+            end
+
+            if currentDistrictType == districtType then
+                return true
+            end
+        end
+    end
+    return false
+end
+
 function CheckDistrictFilters(pCity:table)
     if table.count(m_DistrictFilterSelection) > 0 then
         for district, isChecked in pairs(m_DistrictFilterSelection) do
