@@ -7,5 +7,8 @@
     <Replace Tag="LOC_ESPIONAGECHOOSER_FILTER_SHOW_CITIES" Language="ko_KR">
       <Text>도시 표시</Text>
     </Replace>
+    <Replace Tag="LOC_ESPIONAGECHOOSER_FILTER_INTERNATIONAL" Language="ko_KR">
+      <Text>국제적인</Text>
+    </Replace>
   </LocalizedText>
 </GameData>

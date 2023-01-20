@@ -9,7 +9,7 @@
       <Text>Pokaż miasta</Text>
     </Replace>
     <Replace Tag="LOC_ESPIONAGECHOOSER_FILTER_INTERNATIONAL" Language="pl_PL">
-      <Text>Obce państwa</Text>
+      <Text>Zagranica</Text>
     </Replace>
   </LocalizedText>
 </GameData>

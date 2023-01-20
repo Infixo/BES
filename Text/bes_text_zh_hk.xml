@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameData>
+  <LocalizedText>
+    <!-- 汉语/漢語 (Traditional Chinese) -->
+    <Replace Tag="LOC_ESPIONAGECHOOSER_FILTER_ALL" Language="zh_Hant_HK">
+      <Text>所有城市</Text>
+    </Replace>
+    <Replace Tag="LOC_ESPIONAGECHOOSER_FILTER_SHOW_CITIES" Language="zh_Hant_HK">
+      <Text>篩選</Text>
+    </Replace>
+    <Replace Tag="LOC_ESPIONAGECHOOSER_FILTER_INTERNATIONAL" Language="zh_Hant_HK">
+      <Text>外國城市</Text>
+    </Replace>
+  </LocalizedText>
+</GameData>

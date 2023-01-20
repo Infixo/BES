@@ -3,10 +3,10 @@
   <Properties>
     <Name>Better Espionage Screen (UI)</Name>
     <Teaser>Improves the espionage screen. Adds filters, side screens, etc.</Teaser>
-    <Description>Improves the espionage screen. Adds filters, side screens, etc.[NEWLINE]Version 2.0 enhanced by Infixo.</Description>
+    <Description>Improves the espionage screen. Adds filters, side screens, etc.[NEWLINE]Version 2.1 enhanced by Infixo.</Description>
     <Authors>astog, Infixo</Authors>
     <AffectsSavedGames>0</AffectsSavedGames>
-    <CompatibleVersions>2.0</CompatibleVersions>
+    <CompatibleVersions>1.2,2.0</CompatibleVersions>
   </Properties>
   <InGameActions>
     <!-- LoadOrder: CQUI uses up to 200, original BES doesn't use load order -->
@@ -32,6 +32,8 @@
 		<File>Text/bes_text_pt.xml</File>
 		<File>Text/bes_text_ru.xml</File>
 		<File>Text/bes_text_ko.xml</File>
+		<File>Text/bes_text_zh_cn.xml</File>
+		<File>Text/bes_text_zh_hk.xml</File>
       </Items>
     </LocalizedText>
 	<!-- new font icons -->
@@ -92,5 +94,7 @@
     <File>Text/bes_text_pt.xml</File>
     <File>Text/bes_text_ru.xml</File>
     <File>Text/bes_text_ko.xml</File>
+    <File>Text/bes_text_zh_cn.xml</File>
+    <File>Text/bes_text_zh_hk.xml</File>
   </Files>
 </Mod>

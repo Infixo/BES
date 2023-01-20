@@ -1,3 +1,4 @@
+print("Loading EspionageChooser.lua from Better Espionage Screen version 2.1");
 -- ===========================================================================
 --
 --  Slideout panel for selecting a new destination for a spy unit
@@ -9,6 +10,15 @@ include("SupportFunctions");
 include("EspionageSupport");
 include("EspionageSupport_BES");
 include("Colors");
+
+
+-- ===========================================================================
+-- Expansions check
+-- ===========================================================================
+
+local m_isGatheringStorm = Modding.IsModActive("4873eb62-8ccc-4574-b784-dda455e74e68");                       -- Gathering Storm, BREACH_DAM
+local m_isRiseAndFall    = Modding.IsModActive("1B28771A-C749-434B-9053-D1380C553DE9") or m_isGatheringStorm; -- Rise & Fall, FABRICATE_SCANDAL, FOMENT_UNREST, NEUTRALIZE_GOVERNOR
+
 
 -- ===========================================================================
 --  CONSTANTS
@@ -62,15 +72,19 @@ local m_DistrictFilterSelection:table = {}
 -- Infixo 2023-01-03 operation filtering
 local m_gainSourcesFilter:boolean = false;
 local OperationFilters:table = {
-	UNITOPERATION_SPY_BREACH_DAM = false,
 	UNITOPERATION_SPY_DISRUPT_ROCKETRY = false,
 	UNITOPERATION_SPY_GREAT_WORK_HEIST = false,
-	UNITOPERATION_SPY_NEUTRALIZE_GOVERNOR = false,
 	UNITOPERATION_SPY_RECRUIT_PARTISANS = false,
 	UNITOPERATION_SPY_SABOTAGE_PRODUCTION = false,
 	UNITOPERATION_SPY_SIPHON_FUNDS = false,
 	UNITOPERATION_SPY_STEAL_TECH_BOOST = false,
 };
+if m_isRiseAndFall then
+	OperationFilters.UNITOPERATION_SPY_NEUTRALIZE_GOVERNOR = false;
+end
+if m_isGatheringStorm then
+	OperationFilters.UNITOPERATION_SPY_BREACH_DAM = false;
+end
 
 -- debug routine - prints a table (no recursion)
 function dshowtable(tTable:table)
@@ -826,7 +840,7 @@ function RefreshFilters()
             if pPlayer:IsMajor() then
                 local playerConfig:table = PlayerConfigurations[pPlayer:GetID()];
                 local name = Locale.Lookup(GameInfo.Civilizations[playerConfig:GetCivilizationTypeID()].Name);
-				if localPlayer ~= pPlayer:GetID() and playerDiplomacy:GetAllianceType(pPlayer:GetID()) ~= -1 then -- Infixo 2023-01-03 alliance icon - no spies allowed
+				if m_isRiseAndFall and localPlayer ~= pPlayer:GetID() and playerDiplomacy:GetAllianceType(pPlayer:GetID()) ~= -1 then -- Infixo 2023-01-03 alliance icon - no spies allowed
 					name = name .. "[ICON_AllianceBlue]";
 				end
                 AddFilter(name, function(a) return a:GetID() == pPlayer:GetID() end);
@@ -1317,15 +1331,17 @@ function Initialize()
 
 	-- Infixo 2023-01-03 operation filters
     Controls.SourcesGainedButton:RegisterCallback(     Mouse.eLClick, OnSourcesGainedButton );
-    Controls.MissionKillGovButton:RegisterCallback(    Mouse.eLClick, OnMissionKillGovButton );
     Controls.MissionStealTechButton:RegisterCallback(  Mouse.eLClick, OnMissionStealTechButton );
     Controls.MissionStealGoldButton:RegisterCallback(  Mouse.eLClick, OnMissionStealGoldButton );
     Controls.MissionStealWorkButton:RegisterCallback(  Mouse.eLClick, OnMissionStealWorkButton );
     Controls.MissionIndustrialButton:RegisterCallback( Mouse.eLClick, OnMissionIndustrialButton );
     Controls.MissionPartisansButton:RegisterCallback(  Mouse.eLClick, OnMissionPartisansButton );
     Controls.MissionSpaceportButton:RegisterCallback(  Mouse.eLClick, OnMissionSpaceportButton );
-    Controls.MissionBreachDamButton:RegisterCallback(  Mouse.eLClick, OnMissionBreachDamButton );
-
+	if m_isRiseAndFall then Controls.MissionKillGovButton:RegisterCallback( Mouse.eLClick, OnMissionKillGovButton );
+	else                    Controls.MissionKillGovButton:SetHide(true); end
+	if m_isGatheringStorm then Controls.MissionBreachDamButton:RegisterCallback( Mouse.eLClick, OnMissionBreachDamButton );
+	else                       Controls.MissionBreachDamButton:SetHide(true); end
+	
     -- Game Engine Events
     Events.InterfaceModeChanged.Add( OnInterfaceModeChanged );
     Events.UnitSelectionChanged.Add( OnUnitSelectionChanged );
@@ -1345,3 +1361,5 @@ function Initialize()
     LuaEvents.GameDebug_Return.Add(OnGameDebugReturn);
 end
 Initialize();
+
+print("OK loaded EspionageChooser.lua from Better Espionage Screen");

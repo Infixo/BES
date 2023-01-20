@@ -1,4 +1,4 @@
-﻿print("Loading EspionageOverview.lua from Better Espionage Screen version 2.0");
+﻿print("Loading EspionageOverview.lua from Better Espionage Screen version 2.1");
 -- ===========================================================================
 ---- ESPIONAGE OVERVIEW ----
 -- ===========================================================================

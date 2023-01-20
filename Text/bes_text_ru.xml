@@ -7,5 +7,8 @@
     <Replace Tag="LOC_ESPIONAGECHOOSER_FILTER_SHOW_CITIES" Language="ru_RU">
       <Text>Все города</Text>
     </Replace>
+	<Replace Tag="LOC_ESPIONAGECHOOSER_FILTER_INTERNATIONAL" Language="ru_RU">
+      <Text>Международный</Text>
+    </Replace>
   </LocalizedText>
 </GameData>
