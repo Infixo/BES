@@ -2,13 +2,13 @@
 <GameData>
   <LocalizedText>
     <Replace Tag="LOC_ESPIONAGECHOOSER_FILTER_ALL" Language="pt_BR">
-      <Text>Todos</Text>
+      <Text>Todas</Text>
     </Replace>
     <Replace Tag="LOC_ESPIONAGECHOOSER_FILTER_SHOW_CITIES" Language="pt_BR">
-      <Text>Mostrar cidades</Text>
+      <Text>Exibir Cidades</Text>
     </Replace>
     <Replace Tag="LOC_ESPIONAGECHOOSER_FILTER_INTERNATIONAL" Language="pt_BR">
-      <Text>Internacional</Text>
+      <Text>Internacionais</Text>
     </Replace>
   </LocalizedText>
 </GameData>
